@@ -1,0 +1,4 @@
+Hey I am the contents of a commonly shared hello.txt file.
+
+This is a volume that will be mounted.
+
