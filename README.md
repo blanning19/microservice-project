@@ -21,6 +21,32 @@ This application consists of two Flask microservices that work together to:
 - **Function**: Reads CSV data, sums amounts for specified products
 - **Output**: Returns calculated totals or appropriate error messages
 
+## Application Flow
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant App1 as App1 (Validator)<br/>Port 6000
+    participant App2 as App2 (Processor)<br/>Port 5002
+    participant CSV as CSV Files<br/>(Mounted Volume)
+
+    User->>App1: POST /calculate<br/>{"file": "Book1.csv", "product": "wheat"}
+    
+    App1->>App1: Validate JSON format
+    App1->>App1: Check file existence<br/>/etc/data/Book1.csv
+    
+    alt File exists and valid
+        App1->>App2: POST /<br/>{"file": "Book1.csv", "product": "wheat"}
+        App2->>CSV: Read CSV file
+        CSV-->>App2: Return data rows
+        App2->>App2: Calculate sum for "wheat"
+        App2-->>App1: {"file": "Book1.csv", "sum": 30}
+        App1-->>User: {"file": "Book1.csv", "sum": 30}
+    else File not found or invalid
+        App1-->>User: {"file": "Book1.csv", "error": "File not found."}
+    end
+```
+
 ## API Usage
 
 ### Endpoint: `POST /calculate`
