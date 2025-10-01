@@ -1,0 +1,95 @@
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.02kB done
+#1 DONE 0.0s
+
+#2 [lookup internal] load build definition from Dockerfile
+#2 transferring dockerfile: 346B 0.0s done
+#2 DONE 0.1s
+
+#3 [main internal] load build definition from Dockerfile
+#3 transferring dockerfile: 344B done
+#3 DONE 0.1s
+
+#4 [main internal] load metadata for docker.io/library/python:3.11
+#4 DONE 3.4s
+
+#5 [main internal] load .dockerignore
+#5 transferring context: 2B done
+#5 DONE 0.1s
+
+#6 [lookup internal] load .dockerignore
+#6 transferring context: 2B done
+#6 DONE 0.1s
+
+#7 [main internal] load build context
+#7 DONE 0.0s
+
+#8 [lookup 1/4] FROM docker.io/library/python:3.11@sha256:83d628729e0eeee44778d76087fd1986cf01516c278e1de8a3941e7282d50c60
+#8 DONE 0.0s
+
+#7 [main internal] load build context
+#7 transferring context: 153B done
+#7 DONE 0.1s
+
+#9 [lookup internal] load build context
+#9 transferring context: 153B done
+#9 DONE 0.1s
+
+#10 [main 2/4] WORKDIR /usr/src/main
+#10 CACHED
+
+#11 [main 3/4] COPY . .
+#11 CACHED
+
+#12 [main 4/4] RUN pip3 install --no-cache-dir -r requirements.txt
+#12 CACHED
+
+#13 [lookup 3/4] COPY . .
+#13 CACHED
+
+#14 [lookup 2/4] WORKDIR /usr/src/lookup
+#14 CACHED
+
+#15 [lookup 4/4] RUN pip3 install --no-cache-dir -r requirements.txt
+#15 CACHED
+
+#16 [main] exporting to image
+#16 exporting layers done
+#16 writing image sha256:938b71836b181c3386361ac1afe70b32ead3a6511d441efafe3bca056a547c9d 0.0s done
+#16 naming to docker.io/library/microservice-project-main 0.0s done
+#16 DONE 0.1s
+
+#17 [lookup] exporting to image
+#17 exporting layers done
+#17 writing image sha256:76b8604b3e9136d80f72f0862f9039a50117d9319ebd7ce9f40e9faa5d2a43f7 0.0s done
+#17 naming to docker.io/library/microservice-project-lookup 0.0s done
+#17 DONE 0.1s
+
+#18 [main] resolving provenance for metadata file
+#18 DONE 0.0s
+
+#19 [lookup] resolving provenance for metadata file
+#19 DONE 0.0s
+ microservice-project-main  Built
+ microservice-project-lookup  Built
+ Network microservice-project_default  Creating
+ Network microservice-project_default  Created
+ Container main  Creating
+ Container lookup  Creating
+ Container main  Created
+ Container lookup  Created
+Attaching to lookup, main
+lookup  |  * Serving Flask app 'app'
+lookup  |  * Debug mode: off
+lookup  | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+lookup  |  * Running on all addresses (0.0.0.0)
+lookup  |  * Running on http://127.0.0.1:5002
+lookup  |  * Running on http://172.20.0.3:5002
+lookup  | [33mPress CTRL+C to quit[0m
+main    |  * Serving Flask app 'app'
+main    |  * Debug mode: off
+main    | INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+main    |  * Running on all addresses (0.0.0.0)
+main    |  * Running on http://127.0.0.1:6000
+main    |  * Running on http://172.20.0.2:6000
+main    | INFO:werkzeug:[33mPress CTRL+C to quit[0m

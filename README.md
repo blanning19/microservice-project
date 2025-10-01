@@ -1,4 +1,4 @@
-# Information Retrieval Application
+# microservice-project
 
 A multi-container Docker application that processes CSV files to calculate product totals through a secure, validated API workflow.
 
@@ -11,39 +11,39 @@ This application consists of two Flask microservices that work together to:
 
 ## Architecture
 
-### App1 (Input Validator) - Port 6000
+### ms-main (Input Validator) - Port 6000
 - **Purpose**: Validates user input and file existence
 - **Function**: Acts as a gateway, ensuring only valid requests reach the processing service
 - **Validation**: Checks JSON format, file existence, and input sanitization
 
-### App2 (Data Processor) - Port 5002
+### ms-lookup (Data Processor) - Port 5002
 - **Purpose**: Processes CSV files and calculates product totals
 - **Function**: Reads CSV data, sums amounts for specified products
 - **Output**: Returns calculated totals or appropriate error messages
 
 ## Application Flow
 
-```mermaid
+```
 sequenceDiagram
     participant User
-    participant App1 as App1 (Validator)<br/>Port 6000
-    participant App2 as App2 (Processor)<br/>Port 5002
+    participant ms-main as main (Validator)<br/>Port 6000
+    participant ms-lookup as lookup (Processor)<br/>Port 5002
     participant CSV as CSV Files<br/>(Mounted Volume)
 
-    User->>App1: POST /calculate<br/>{"file": "Book1.csv", "product": "wheat"}
+    User->>main: POST /calculate<br/>{"file": "Book1.csv", "product": "wheat"}
     
-    App1->>App1: Validate JSON format
-    App1->>App1: Check file existence<br/>/etc/data/Book1.csv
+    main->>main: Validate JSON format
+    main->>main: Check file existence<br/>/etc/data/Book1.csv
     
     alt File exists and valid
-        App1->>App2: POST /<br/>{"file": "Book1.csv", "product": "wheat"}
-        App2->>CSV: Read CSV file
-        CSV-->>App2: Return data rows
-        App2->>App2: Calculate sum for "wheat"
-        App2-->>App1: {"file": "Book1.csv", "sum": 30}
-        App1-->>User: {"file": "Book1.csv", "sum": 30}
+        main->>lookup: POST /<br/>{"file": "Book1.csv", "product": "wheat"}
+        lookup->>CSV: Read CSV file
+        CSV-->>lookup: Return data rows
+        lookup->>lookup: Calculate sum for "wheat"
+        lookup-->>main: {"file": "Book1.csv", "sum": 30}
+        main-->>User: {"file": "Book1.csv", "sum": 30}
     else File not found or invalid
-        App1-->>User: {"file": "Book1.csv", "error": "File not found."}
+        main-->>User: {"file": "Book1.csv", "error": "File not found."}
     end
 ```
 
@@ -77,12 +77,12 @@ sequenceDiagram
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd Information-Retrieval-Application
+   cd microservice-project
    ```
 
 2. **Run with Docker Compose**
    ```bash
-   docker-compose up
+   docker-compose up --build
    ```
 
 3. **Test the API**
