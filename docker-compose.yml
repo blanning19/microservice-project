@@ -1,0 +1,20 @@
+services:
+  main:
+    build:
+      context: ./ms-main # Path to the local directory with Dockerfile for main service
+      dockerfile: Dockerfile  # Optional if file is named "Dockerfile"
+    container_name: main
+    ports:
+      - "6000:6000"
+    volumes:
+      - .:/etc/data:ro
+
+  lookup:
+    build:
+      context: ./ms-lookup    # Path to the local directory with Dockerfile for lookup service
+      dockerfile: Dockerfile  # Optional if file is named "Dockerfile"
+    container_name: lookup
+    ports:
+      - "5002:5002"
+    volumes:
+      - .:/etc/data:ro
