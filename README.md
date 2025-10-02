@@ -111,3 +111,8 @@ CSV files should contain:
 - File existence verification
 - Error handling for malformed data
 - Container isolation for enhanced security
+
+## Troubleshooting Help
+
+- Try to clear and remove existing docker containers using `docker ps -aq | xargs -r docker rm -f`
+- Modified docker build to output build log using `docker-compose up --build 2>&1 | tee build.log` to build

@@ -18,3 +18,7 @@ services:
       - "5002:5002"
     volumes:
       - .:/etc/data:ro
+
+#.:/etc/data:ro means:
+# Mount the current directory (.) on the host into the container at /etc/data.
+# :ro stands for read-only:      
