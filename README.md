@@ -116,3 +116,16 @@ CSV files should contain:
 
 - Try to clear and remove existing docker containers using `docker ps -aq | xargs -r docker rm -f`
 - Modified docker build to output build log using `docker-compose up --build 2>&1 | tee build.log` to build
+- Error: Host key verification failed.  `ssh-keygen -f "$HOME/.ssh/known_hosts" -R "[localhost]:2222"` where the host is localhost and the port is 2222.  Then try to ssh again and the new host should work.
+- `docker compose exec lookup bash -lc "curl -v http://127.0.0.1:5002/ || true"`
+If you get a response (even 404/405), the service is running and listening.
+If you get “Connection refused”, the app is not bound to 0.0.0.0:5002 or it hasn’t started.
+- Modified docker build to output build log using `docker-compose up --build 2>&1 | tee build.log` to build
+
+
+## SSH into the containers
+
+- `ssh -p 2221 dev@localhost`  --pwd dev
+- `ssh -p 2222 dev@localhost`  --pwd dev
+- `cd /app` and view the container files
+

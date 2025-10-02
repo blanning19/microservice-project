@@ -1,23 +1,40 @@
-services:
+services:  
   main:
     build:
-      context: ./ms-main # Path to the local directory with Dockerfile for main service
-      dockerfile: Dockerfile  # Optional if file is named "Dockerfile"
+      context: ./ms-main
+      dockerfile: Dockerfile
     container_name: main
     ports:
-      - "6000:6000"
+      - "6000:6000"           # app
+      - "2221:22"             # SSH
     volumes:
-      - .:/etc/data:ro
+      - .:/etc/data
+      - ./ms-main:/app
+    working_dir: /app
+    environment:
+      - APP_CMD=python3 app/app.py
+      - LOOKUP_BASE_URL=http://lookup:5002   # <— use service name, not localhost
+      - HOST=0.0.0.0
+      - PORT=6000
+    depends_on:
+      - lookup
 
   lookup:
     build:
-      context: ./ms-lookup    # Path to the local directory with Dockerfile for lookup service
-      dockerfile: Dockerfile  # Optional if file is named "Dockerfile"
+      context: ./ms-lookup
+      dockerfile: Dockerfile
     container_name: lookup
     ports:
-      - "5002:5002"
+      - "5002:5002"           # app
+      - "222:22"             # SSH
     volumes:
-      - .:/etc/data:ro
+      - .:/etc/data
+      - ./ms-lookup:/app      # <— FIXED (was ms-main)
+    working_dir: /app
+    environment:
+      - APP_CMD=python3 app/app.py
+      - HOST=0.0.0.0
+      - PORT=5002
 
 #.:/etc/data:ro means:
 # Mount the current directory (.) on the host into the container at /etc/data.

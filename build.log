@@ -2,94 +2,133 @@
 #1 reading from stdin 1.02kB done
 #1 DONE 0.0s
 
-#2 [lookup internal] load build definition from Dockerfile
-#2 transferring dockerfile: 346B 0.0s done
+#2 [main internal] load build definition from Dockerfile
+#2 transferring dockerfile: 1.32kB done
 #2 DONE 0.1s
 
-#3 [main internal] load build definition from Dockerfile
-#3 transferring dockerfile: 344B done
+#3 [lookup internal] load build definition from Dockerfile
+#3 transferring dockerfile: 1.32kB done
 #3 DONE 0.1s
 
-#4 [main internal] load metadata for docker.io/library/python:3.11
-#4 DONE 3.4s
+#4 [lookup internal] load metadata for docker.io/library/python:3.11
+#4 DONE 3.2s
 
-#5 [main internal] load .dockerignore
+#5 [lookup internal] load .dockerignore
 #5 transferring context: 2B done
 #5 DONE 0.1s
 
-#6 [lookup internal] load .dockerignore
-#6 transferring context: 2B done
-#6 DONE 0.1s
+#6 [lookup internal] load build context
+#6 DONE 0.0s
 
-#7 [main internal] load build context
-#7 DONE 0.0s
-
-#8 [lookup 1/4] FROM docker.io/library/python:3.11@sha256:83d628729e0eeee44778d76087fd1986cf01516c278e1de8a3941e7282d50c60
-#8 DONE 0.0s
-
-#7 [main internal] load build context
-#7 transferring context: 153B done
+#7 [main internal] load .dockerignore
+#7 transferring context: 2B done
 #7 DONE 0.1s
 
-#9 [lookup internal] load build context
-#9 transferring context: 153B done
+#8 [main 1/9] FROM docker.io/library/python:3.11@sha256:d64744243357bfac2d6fa45fb913111ec9ee513f409d505450a4b346498e85df
+#8 resolve docker.io/library/python:3.11@sha256:d64744243357bfac2d6fa45fb913111ec9ee513f409d505450a4b346498e85df
+#8 resolve docker.io/library/python:3.11@sha256:d64744243357bfac2d6fa45fb913111ec9ee513f409d505450a4b346498e85df 0.1s done
+#8 DONE 0.1s
+
+#9 [main internal] load build context
+#9 transferring context: 384B done
 #9 DONE 0.1s
 
-#10 [main 2/4] WORKDIR /usr/src/main
+#6 [lookup internal] load build context
+#6 transferring context: 384B done
+#6 DONE 0.1s
+
+#10 [main 3/9] COPY . .
 #10 CACHED
 
-#11 [main 3/4] COPY . .
+#11 [main 4/9] RUN pip3 install --no-cache-dir -r requirements.txt
 #11 CACHED
 
-#12 [main 4/4] RUN pip3 install --no-cache-dir -r requirements.txt
+#12 [main 6/9] RUN useradd -m -s /bin/bash dev && echo "dev:dev" | chpasswd
 #12 CACHED
 
-#13 [lookup 3/4] COPY . .
+#13 [main 8/9] COPY docker/start.sh /usr/local/bin/start.sh
 #13 CACHED
 
-#14 [lookup 2/4] WORKDIR /usr/src/lookup
+#14 [main 2/9] WORKDIR /usr/src/main
 #14 CACHED
 
-#15 [lookup 4/4] RUN pip3 install --no-cache-dir -r requirements.txt
+#15 [main 7/9] RUN sed -ri 's/^#?PasswordAuthentication .*/PasswordAuthentication yes/' /etc/ssh/sshd_config &&     sed -ri 's/^#?PubkeyAuthentication .*/PubkeyAuthentication yes/' /etc/ssh/sshd_config &&     sed -ri 's/^#?PermitRootLogin .*/PermitRootLogin no/' /etc/ssh/sshd_config
 #15 CACHED
 
-#16 [main] exporting to image
-#16 exporting layers done
-#16 writing image sha256:938b71836b181c3386361ac1afe70b32ead3a6511d441efafe3bca056a547c9d 0.0s done
-#16 naming to docker.io/library/microservice-project-main 0.0s done
-#16 DONE 0.1s
+#16 [main 5/9] RUN apt-get update &&     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends openssh-server &&     rm -rf /var/lib/apt/lists/* &&     mkdir -p /var/run/sshd
+#16 CACHED
 
-#17 [lookup] exporting to image
-#17 exporting layers done
-#17 writing image sha256:76b8604b3e9136d80f72f0862f9039a50117d9319ebd7ce9f40e9faa5d2a43f7 0.0s done
-#17 naming to docker.io/library/microservice-project-lookup 0.0s done
-#17 DONE 0.1s
+#17 [main 9/9] RUN chmod +x /usr/local/bin/start.sh
+#17 CACHED
 
-#18 [main] resolving provenance for metadata file
-#18 DONE 0.0s
+#18 [lookup 8/9] COPY docker/start.sh /usr/local/bin/start.sh
+#18 CACHED
 
-#19 [lookup] resolving provenance for metadata file
-#19 DONE 0.0s
- microservice-project-main  Built
+#19 [lookup 6/9] RUN useradd -m -s /bin/bash dev && echo "dev:dev" | chpasswd
+#19 CACHED
+
+#20 [lookup 5/9] RUN apt-get update &&     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends openssh-server &&     rm -rf /var/lib/apt/lists/* &&     mkdir -p /var/run/sshd
+#20 CACHED
+
+#21 [lookup 4/9] RUN pip3 install --no-cache-dir -r requirements.txt
+#21 CACHED
+
+#22 [lookup 2/9] WORKDIR /usr/src/lookup
+#22 CACHED
+
+#23 [lookup 3/9] COPY . .
+#23 CACHED
+
+#24 [lookup 7/9] RUN sed -ri 's/^#?PasswordAuthentication .*/PasswordAuthentication yes/' /etc/ssh/sshd_config &&     sed -ri 's/^#?PubkeyAuthentication .*/PubkeyAuthentication yes/' /etc/ssh/sshd_config &&     sed -ri 's/^#?PermitRootLogin .*/PermitRootLogin no/' /etc/ssh/sshd_config
+#24 CACHED
+
+#25 [lookup 9/9] RUN chmod +x /usr/local/bin/start.sh
+#25 CACHED
+
+#26 [lookup] exporting to image
+#26 exporting layers done
+#26 writing image sha256:d88967b23f769456abc657c26356506159b54529d0a5384784fefa420bb80606 0.0s done
+#26 naming to docker.io/library/microservice-project-lookup
+#26 naming to docker.io/library/microservice-project-lookup 0.0s done
+#26 DONE 0.1s
+
+#27 [main] exporting to image
+#27 exporting layers done
+#27 writing image sha256:3568053de9f535d9ec1c099d79c0282fc450785b7e45e9fd61990cffcb6d78e2 0.0s done
+#27 naming to docker.io/library/microservice-project-main 0.0s done
+#27 DONE 0.1s
+
+#28 [main] resolving provenance for metadata file
+#28 DONE 0.0s
+
+#29 [lookup] resolving provenance for metadata file
+#29 DONE 0.0s
  microservice-project-lookup  Built
+ microservice-project-main  Built
  Network microservice-project_default  Creating
  Network microservice-project_default  Created
- Container main  Creating
  Container lookup  Creating
- Container main  Created
  Container lookup  Created
+ Container main  Creating
+ Container main  Created
 Attaching to lookup, main
+lookup  | Starting app: python3 app/app.py
 lookup  |  * Serving Flask app 'app'
 lookup  |  * Debug mode: off
 lookup  | [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
 lookup  |  * Running on all addresses (0.0.0.0)
 lookup  |  * Running on http://127.0.0.1:5002
-lookup  |  * Running on http://172.20.0.3:5002
+lookup  |  * Running on http://172.20.0.2:5002
 lookup  | [33mPress CTRL+C to quit[0m
+main    | Starting app: python3 app/app.py
 main    |  * Serving Flask app 'app'
 main    |  * Debug mode: off
 main    | INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
 main    |  * Running on all addresses (0.0.0.0)
 main    |  * Running on http://127.0.0.1:6000
-main    |  * Running on http://172.20.0.2:6000
+main    |  * Running on http://172.20.0.3:6000
 main    | INFO:werkzeug:[33mPress CTRL+C to quit[0m
+lookup  | 127.0.0.1 - - [02/Oct/2025 18:05:11] "GET / HTTP/1.1" 200 -
+lookup  | 172.20.0.3 - - [02/Oct/2025 18:05:39] "POST / HTTP/1.1" 200 -
+main    | INFO:werkzeug:172.20.0.1 - - [02/Oct/2025 18:05:39] "POST /calculate HTTP/1.1" 200 -
+lookup  | 127.0.0.1 - - [02/Oct/2025 18:47:27] "GET / HTTP/1.1" 200 -
